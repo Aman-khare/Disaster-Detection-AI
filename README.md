@@ -1,65 +1,114 @@
-# Disaster Detection AI
+<div align="center">
+  <h1>🚨 Disaster Detection AI</h1>
+  <p><strong>Autonomous Disaster Intelligence and Response System</strong></p>
+</div>
 
-Disaster Detection AI is an autonomous, agent-based disaster intelligence and response system. It analyzes real-time weather and geographic data to predict hazards, assess risks, and generate comprehensive emergency response reports for any location globally.
+Disaster Detection AI is an intelligent, autonomous, agent-based disaster prediction and response system. It analyzes real-time weather, geographic data, and live signals to predict hazards, assess risks, and generate comprehensive emergency response plans globally.
+
+Powered by the **Model Context Protocol (MCP)** and advanced LLMs (like **Google Gemini**), the system operates via specialized agents that collaborate to ensure timely and actionable disaster intelligence.
+
+---
+
+## ✨ Key Features
+
+- **Live Intelligence Ingestion:** Fetches real-time weather metrics (rainfall, wind speed, temperature, AQI) and geolocation data globally.
+- **Autonomous Multi-Agent Pipeline:** Employs a sequence of specialized AI agents:
+  - 🌦️ **Weather Intelligence Agent:** Builds a live hazard footprint.
+  - 📉 **Disaster Prediction Agent:** Scores disaster probability, confidence, and alert states.
+  - 🏙️ **Situation Assessment Agent:** Estimates the impact on the local population and infrastructure.
+  - 🛡️ **Safe Zone Agent:** Ranks potential shelter locations based on safety buffers and capacity.
+  - 🗺️ **Evacuation Planning Agent:** Computes hazard-aware evacuation routes.
+  - 🆘 **Citizen Survival Assistant:** Prepares citizen instructions and emergency supply checklists.
+  - 🚑 **Resource Allocation Agent:** Suggests field deployment strategies for rescue teams.
+- **Dynamic Context Generation:** Automatically infers local emergency contacts, regional layout, and critical infrastructure based on the location.
+- **Interactive Dashboard:** Sleek, responsive web dashboard with dynamic hazard maps, metrics, and automated PDF reporting.
+
+---
+
+## 🏗 Architecture
+
+- **Backend:** Pure Python 3.11+ using the standard library `http.server`. No heavy web frameworks required.
+- **Frontend:** Vanilla JS, HTML5, and CSS3 featuring a custom Glassmorphic design system and dynamic SVG maps.
+- **AI & Data Protocols:** Utilizes the **Model Context Protocol (MCP)** to standardize tool execution. Agents are powered by LLMs to process signals and execute reasoning.
+
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.11 or higher
 
-### Installation & Running Locally
+- **Python 3.11** or higher
+- **Git**
+- **Gemini API Key:** Required for powering the reasoning capabilities of the autonomous AI agents via the MCP integration.
 
-1. **Navigate to the project directory:**
-   ```bash
-   cd path/to/crisismind-ai
-   ```
+### 1. Clone the Repository
 
-2. **Install dependencies:**
-   ```bash
-   python -m pip install -r requirements.txt
-   ```
+```bash
+git clone https://github.com/Aman-khare/Disaster-Detection-AI.git
+cd Disaster-Detection-AI
+```
 
-3. **Start the application:**
-   ```bash
-   python -B main.py
-   ```
-   *The server will start on `http://127.0.0.1:8765`.*
+### 2. Configure the Gemini API Key
 
-4. **Access the Dashboard:**
-   Open your web browser and navigate to [http://127.0.0.1:8765](http://127.0.0.1:8765).
+The system's agents utilize the Google Gemini API for their reasoning, decision-making, and natural language generation. 
+
+Create a `.env` file in the root directory and add your API key, or set it as an environment variable in your terminal:
+
+**On Windows (PowerShell):**
+```powershell
+$env:GEMINI_API_KEY="your_api_key_here"
+```
+
+**On macOS/Linux:**
+```bash
+export GEMINI_API_KEY="your_api_key_here"
+```
+
+> **Note:** The Gemini API key is queried by the engine's core logic whenever an agent needs to resolve ambiguities in live data, generate citizen survival instructions, or synthesize the final emergency report.
+
+### 3. Install Dependencies
+
+Install the necessary Python packages:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 4. Run the Application Locally
+
+Start the local AI server:
+
+```bash
+python -B main.py
+```
+
+The server will initialize and start running on `http://127.0.0.1:8765`. 
+Open your web browser and navigate to [http://127.0.0.1:8765](http://127.0.0.1:8765) to access the Disaster Detection Dashboard.
 
 ---
 
-## 🌍 Overview & Use Case
+## 🧪 Testing Locally
 
-Disaster Detection AI is designed to assist emergency management authorities, city planners, and first responders by providing an automated, highly detailed analysis of impending natural disasters (such as floods, cyclones, and heatwaves).
+The project includes an automated test suite to ensure the reliability of the agent pipelines and data ingestion tools. 
 
-When a user searches for a location or uses their live location, the system performs a multi-stage analysis:
-
-1. **Live Data Ingestion:** Fetches real-time weather metrics (rainfall, wind speed, temperature, AQI) using Open-Meteo and geolocation data using Nominatim.
-2. **Contextual Data Generation:** Dynamically generates location-aware contextual data. This includes plausible map regions, evacuation shelters, hospitals, schools, and emergency contact numbers mapped to the specific country/region being analyzed.
-3. **Multi-Agent Pipeline:** A sequence of specialized logic agents processes the data:
-   - **Weather Intelligence Agent:** Builds the live hazard footprint based on weather conditions.
-   - **Disaster Prediction Agent:** Scores disaster probability, confidence, and alert states.
-   - **Situation Assessment Agent:** Estimates the impact on the local population and critical infrastructure.
-   - **Safe Zone Agent:** Ranks potential shelter locations based on safety buffers, distance, and capacity.
-   - **Evacuation Planning Agent:** Computes hazard-aware evacuation routes and estimated travel times.
-   - **Citizen Survival Assistant:** Prepares citizen instructions, emergency supply checklists, and contact guidance.
-   - **Resource Allocation Agent:** Suggests field deployment strategies for ambulances, rescue teams, and drones.
-   - **Emergency Report Agent:** Compiles all findings into an authority-facing incident recommendation report.
-4. **Interactive Dashboard & Reporting:** The results are presented in a sleek, responsive web dashboard featuring dynamic hazard maps, critical risk metrics, safe zone directories, and the ability to download the full intelligence report as a PDF.
-
-## 🏗 Architecture
-
-The system is built as a self-contained web application:
-- **Backend:** Pure Python 3.11+ using the standard library `http.server`. It requires zero external backend frameworks (like Django/FastAPI) to run.
-- **Frontend:** Vanilla JavaScript, HTML5, and CSS3. The UI uses a modern design system with dynamic SVG maps and animated metrics.
-- **Data Protocols:** The architecture supports the Model Context Protocol (MCP) for tool and data integration. The engine leverages an internal `LocalDatasetRegistry` to dynamically generate region-specific data, ensuring the application remains fully functional globally even without external data providers.
-
-## 🧪 Testing
-
-To run the automated test suite, execute the following command from the project root:
+To run the unit tests locally, execute the following command from the project root directory:
 
 ```bash
 python -B -m unittest discover -s tests -v
 ```
+
+This will run tests against the engine logic, local server endpoints, and live weather ingestion mockups.
+
+---
+
+## 🔮 Future Scope
+
+- **IoT Sensor Integration:** Direct ingestion from river sensors, seismographs, and live traffic cameras.
+- **Social Listening Agents:** Reading live social media streams (e.g., X/Twitter) to gauge real-time public panic levels.
+- **Automated Dispatch Integration:** Direct API pipelines with local emergency dispatch to route ambulances automatically.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! If you'd like to improve the agents, add new data ingestion tools, or refine the UI, feel free to fork the repository, create a feature branch, and submit a pull request.
