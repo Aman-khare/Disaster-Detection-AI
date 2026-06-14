@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Disaster Detection AI — Autonomous disaster intelligence and response. Real-time risk analysis, safe zones, and evacuation planning." />
+    <title>Disaster Detection AI — Crisis Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/app.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+
+      <!-- ─── TOP BAR ─── -->
+      <header class="topbar">
+        <div class="topbar-brand">
+          <span class="brand-icon">🧠</span>
+          <span class="brand-name">Disaster Detection AI</span>
+        </div>
+        <div class="topbar-meta">
+          <span id="topbar-status" class="topbar-pill">Waiting for location…</span>
+        </div>
+      </header>
+
+      <!-- ─── PROGRESS BAR ─── -->
+      <div class="wizard-progress">
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="step-indicators">
+          <div id="step-ind-1" class="step-ind active">
+            <span class="step-num">1</span>
+            <span class="step-label">Location</span>
+          </div>
+          <div id="step-ind-2" class="step-ind">
+            <span class="step-num">2</span>
+            <span class="step-label">Live Data</span>
+          </div>
+          <div id="step-ind-3" class="step-ind">
+            <span class="step-num">3</span>
+            <span class="step-label">Analysis</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ STEP 1 — LOCATION INPUT ═══════ -->
+      <section id="step-1" class="wizard-step step-visible">
+        <div class="step-card glass-card step-location">
+          <div class="step-header">
+            <span class="step-badge">Step 1</span>
+            <h1>Where is the crisis?</h1>
+            <p class="step-subtitle">Enter a city, region, or country — or use your device GPS to detect your position automatically.</p>
+          </div>
+          <div class="location-form">
+            <div class="search-row">
+              <div class="search-input-wrap">
+                <span class="search-icon">🔍</span>
+                <input id="location-query" type="text" placeholder="e.g. Japan, Tokyo, Mumbai…" autocomplete="off" />
+              </div>
+              <button id="search-btn" class="btn-primary">Search Location</button>
+            </div>
+            <div class="divider-or"><span>or</span></div>
+            <button id="gps-btn" class="btn-gps">
+              <span class="gps-icon">📍</span>
+              Use My GPS Location
+            </button>
+            <div id="location-feedback" class="location-feedback hidden"></div>
+          </div>
+
+          <!-- optional presets -->
+          <div class="preset-section">
+            <p class="preset-label">Quick presets</p>
+            <div class="preset-chips">
+              <button class="preset-chip" data-query="Tokyo, Japan">🇯🇵 Tokyo</button>
+              <button class="preset-chip" data-query="Mumbai, India">🇮🇳 Mumbai</button>
+              <button class="preset-chip" data-query="Miami, Florida">🇺🇸 Miami</button>
+              <button class="preset-chip" data-query="Manila, Philippines">🇵🇭 Manila</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════ STEP 2 — FETCHING LIVE DATA ═══════ -->
+      <section id="step-2" class="wizard-step">
+        <div class="step-card glass-card step-fetching">
+          <div class="step-header">
+            <span class="step-badge">Step 2</span>
+            <h1 id="fetch-title">Fetching live data…</h1>
+            <p class="step-subtitle" id="fetch-subtitle">Connecting to weather stations and sensors.</p>
+          </div>
+          <div class="fetch-progress">
+            <div class="fetch-task" id="task-geocode">
+              <span class="task-icon spinner">⏳</span>
+              <span class="task-text">Geocoding location…</span>
+            </div>
+            <div class="fetch-task" id="task-weather">
+              <span class="task-icon pending">⬜</span>
+              <span class="task-text">Fetching live weather from Open-Meteo…</span>
+            </div>
+            <div class="fetch-task" id="task-signals">
+              <span class="task-icon pending">⬜</span>
+              <span class="task-text">Estimating social & news signals…</span>
+            </div>
+            <div class="fetch-task" id="task-classify">
+              <span class="task-icon pending">⬜</span>
+              <span class="task-text">Auto-detecting disaster type…</span>
+            </div>
+          </div>
+          <div id="fetch-summary" class="fetch-summary hidden"></div>
+        </div>
+      </section>
+
+      <!-- ═══════ STEP 3 — ANALYSIS & REPORT ═══════ -->
+      <section id="step-3" class="wizard-step">
+        <div class="step-card glass-card step-analysis-header">
+          <div class="step-header">
+            <span class="step-badge">Step 3</span>
+            <h1 id="report-title">Running multi-agent crisis analysis…</h1>
+            <p class="step-subtitle" id="report-subtitle">Seven autonomous agents are analyzing the situation.</p>
+          </div>
+        </div>
+
+        <!-- risk banner -->
+        <div class="risk-banner glass-card" id="risk-banner" style="display:none">
+          <p class="eyebrow" id="risk-status-text"></p>
+          <h2 id="risk-headline"></h2>
+          <p id="risk-summary"></p>
+        </div>
+
+        <!-- metrics -->
+        <div class="metrics-grid" id="metrics-grid" style="display:none"></div>
+
+        <!-- map -->
+        <div class="map-card glass-card" id="map-card" style="display:none">
+          <div class="card-heading">
+            <div>
+              <p class="eyebrow">Live Risk Map</p>
+              <h3>Hazards, corridors, and shelters</h3>
+            </div>
+            <div class="map-legend">
+              <span><i class="legend hazard"></i>Hazard</span>
+              <span><i class="legend route"></i>Route</span>
+              <span><i class="legend safe"></i>Safe Zone</span>
+            </div>
+          </div>
+          <div id="map-stage" class="map-stage"></div>
+        </div>
+
+        <!-- intel panels -->
+        <div class="intel-columns" id="intel-columns" style="display:none">
+          <article class="intel-card glass-card">
+            <div class="card-heading"><div><p class="eyebrow">Situation Intelligence</p><h3>Impact Summary</h3></div></div>
+            <div id="situation-content" class="stack"></div>
+          </article>
+
+          <article class="intel-card glass-card">
+            <div class="card-heading"><div><p class="eyebrow">Safe Zones</p><h3>Priority shelters</h3></div></div>
+            <div id="safe-zone-content" class="stack"></div>
+          </article>
+
+          <article class="intel-card glass-card">
+            <div class="card-heading"><div><p class="eyebrow">Evacuation Planner</p><h3>Primary and alternate routes</h3></div></div>
+            <div id="route-content" class="stack"></div>
+          </article>
+
+          <article class="intel-card glass-card">
+            <div class="card-heading"><div><p class="eyebrow">Citizen Assistant</p><h3>What people should do next</h3></div></div>
+            <div id="guidance-content" class="stack"></div>
+          </article>
+
+          <article class="intel-card glass-card trace-card">
+            <div class="card-heading"><div><p class="eyebrow">Agent Trace</p><h3>Autonomous workflow</h3></div></div>
+            <div id="trace-content" class="stack"></div>
+          </article>
+        </div>
+
+        <!-- actions -->
+        <div class="report-actions" id="report-actions" style="display:none">
+          <button id="pdf-btn" class="btn-primary">📄 Download PDF Report</button>
+          <button id="restart-btn" class="btn-secondary">🔄 Analyze Another Location</button>
+        </div>
+      </section>
+
+    </div>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

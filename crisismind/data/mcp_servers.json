@@ -1,0 +1,34 @@
+{
+  "servers": {
+    "weather": {
+      "label": "Weather MCP Server",
+      "transport": "stdio",
+      "command": [
+        "{python}",
+        "-u",
+        "{project_root}/mcp_servers/weather_server.py"
+      ],
+      "cwd": "{project_root}"
+    },
+    "maps": {
+      "label": "Maps MCP Server",
+      "transport": "stdio",
+      "command": [
+        "{python}",
+        "-u",
+        "{project_root}/mcp_servers/maps_server.py"
+      ],
+      "cwd": "{project_root}"
+    },
+    "command": {
+      "label": "Command MCP Server",
+      "transport": "stdio",
+      "command": [
+        "{python}",
+        "-u",
+        "{project_root}/mcp_servers/command_server.py"
+      ],
+      "cwd": "{project_root}"
+    }
+  }
+}
